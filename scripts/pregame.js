@@ -1,11 +1,12 @@
-// let numberOfGames;
 const chooseYourFighter = document.querySelector("h3");
+let newGame;
 
-class Game {
+class Pregame {
   constructor(player1, player2) {
     this.player1 = player1;
     this.player2 = player2;
-    this.howManyGames = Game.howManyGames();
+    this.howManyGames = Pregame.howManyGames();
+    this.activePlayer = Math.floor(Math.random() * (3 - 1)) + 1;
   }
 
   static unlockStart() {
@@ -43,8 +44,10 @@ class Game {
     return this.numberOfGames;
   }
 
-  start() {
-    return `How many games: ${this.howManyGames} Player1: ${this.player1.name} Player2: ${this.player2.name}`;
+  load() {
+    newGame = new Game(this.activePlayer, this.player1, this.player2);
+    newGame.start();
+    return `How many games: ${this.howManyGames} Player1: ${this.player1.name} Player2: ${this.player2.name} ActivePlayer: ${this.activePlayer}`;
   }
 }
 
@@ -74,7 +77,7 @@ class Player {
             e.target.getAttribute("name"),
             `../assets/fighters/${e.target.classList[1]}.jpg`
           );
-          chooseYourFighter.textContent = Game.unlockStart();
+          chooseYourFighter.textContent = Pregame.unlockStart();
         };
         if (players.player1 !== undefined && players.player2 !== undefined) {
           players.player1 = undefined;
@@ -96,12 +99,12 @@ class Player {
   }
 }
 
-Game.howManyGames();
+Pregame.howManyGames();
 Player.chooseYourFighter();
 
-let newGame;
+let newPregame;
 const startButton = document.querySelector(".start");
 startButton.addEventListener("click", () => {
-  newGame = new Game(players.player1, players.player2);
-  console.log(newGame.start());
+  newPregame = new Pregame(players.player1, players.player2);
+  newPregame.load();
 });

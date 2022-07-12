@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
-    <div class="container">
+    <div class="pregame">
       <!-- CHOOSING YOUR FIGTER -->
       <h1>TicTac<span>GOAL</span> - the Game!</h1>
 
@@ -81,6 +81,81 @@
       </div>
       <button class="start" disabled>Start the game!</button>
     </div>
+
+    <div class="game d-none">
+      <div class="results">
+        <div class="player1">
+          <img src="/assets/fighters/fighterA.jpg" alt="" />
+          <span
+            ><u>Leo Messi</u>
+            <div class="block">
+              <img class="point" src="assets/point.png" /><img
+                class="point"
+                src="assets/point.png"
+              /><img class="point" src="assets/point.png" /><img
+                class="point"
+                src="assets/point.png"
+              /><img class="point" src="assets/point.png" /><img
+                class="point"
+                src="assets/point.png"
+              /><img class="point" src="assets/point.png" /><img
+                class="point"
+                src="assets/point.png"
+              /><img class="point" src="assets/point.png" /><img
+                class="point"
+                src="assets/point.png"
+              /></div
+          ></span>
+        </div>
+        <div class="middle">2:0</div>
+        <div class="player2">
+          <span
+            >Kevin De Bruyne
+            <div class="block">
+              <img class="point" src="assets/point.png" /><img
+                class="point"
+                src="assets/point.png"
+              /><img class="point" src="assets/point.png" /><img
+                class="point"
+                src="assets/point.png"
+              /></div
+          ></span>
+          <img src="/assets/fighters/fighterB.jpg" alt="" />
+        </div>
+      </div>
+      <div class="ticTac">
+        <div class="ticTacField colOne rowA"></div>
+        <div class="ticTacField colTwo rowA"></div>
+        <div class="ticTacField colThree rowA"></div>
+        <div class="ticTacField colFour rowA"></div>
+        <div class="ticTacField colFive rowA"></div>
+
+        <div class="ticTacField colOne rowB"></div>
+        <div class="ticTacField colTwo rowB"></div>
+        <div class="ticTacField colThree rowB"></div>
+        <div class="ticTacField colFour rowB"></div>
+        <div class="ticTacField colFive rowB"></div>
+
+        <div class="ticTacField colOne rowC"></div>
+        <div class="ticTacField colTwo rowC"></div>
+        <div class="ticTacField colThree rowC"></div>
+        <div class="ticTacField colFour rowC"></div>
+        <div class="ticTacField colFive rowC"></div>
+
+        <div class="ticTacField colOne rowD"></div>
+        <div class="ticTacField colTwo rowD"></div>
+        <div class="ticTacField colThree rowD"></div>
+        <div class="ticTacField colFour rowD"></div>
+        <div class="ticTacField colFive rowD"></div>
+
+        <div class="ticTacField colOne rowE"></div>
+        <div class="ticTacField colTwo rowE"></div>
+        <div class="ticTacField colThree rowE"></div>
+        <div class="ticTacField colFour rowE"></div>
+        <div class="ticTacField colFive rowE"></div>
+      </div>
+    </div>
     <script src="./scripts/pregame.js"></script>
+    <script src="./scripts/game.js"></script>
   </body>
 </html>
