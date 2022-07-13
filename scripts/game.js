@@ -1,3 +1,7 @@
+// --------------------
+// GAME CLASS
+// --------------------
+
 const ticTacFields = document.querySelectorAll(".ticTacField");
 
 class Game {
@@ -6,6 +10,8 @@ class Game {
     this.player1 = player1;
     this.player2 = player2;
   }
+
+  // HIDE PREGAME AND SHOW GAME
   start() {
     document
       .querySelectorAll(".pregame, .game")
@@ -13,7 +19,9 @@ class Game {
     this.makeDecision();
   }
 
+  // HOVER TO PREVIEW, CLICK TO MAKE A DECISION
   makeDecision() {
+    // PREVIEW YOUR DECISION
     const resetHover = (hover) => (hover.style.backgroundImage = null);
 
     ticTacFields.forEach((field) => {
@@ -33,6 +41,7 @@ class Game {
         }
       });
 
+      //CLICK TO MAKE A DECISION
       field.addEventListener("click", () => {
         if (
           field.innerHTML !== '<div class="o"></div>' &&
@@ -52,6 +61,7 @@ class Game {
     });
   }
 
+  // CHECK IF SOMEONE WON
   checkResult() {
     const rowA = Array.from(document.querySelectorAll(".rowA"));
     const rowB = Array.from(document.querySelectorAll(".rowB"));
@@ -81,17 +91,22 @@ class Game {
     const allLines = [...rowsAndCols, crossA, crossB];
 
     const check = (line) => {
+      // CIRCLE WON
       if (
         line.every((element) => element.innerHTML === '<div class="o"></div>')
       ) {
         console.log("Wygrało kółko");
         rowsAndCols.forEach((arr) => arr.forEach((el) => (el.innerHTML = "")));
-      } else if (
+      }
+      // CROSS WON
+      else if (
         line.every((element) => element.innerHTML === '<div class="x"></div>')
       ) {
         console.log("Wygrał krzyżyk");
         rowsAndCols.forEach((arr) => arr.forEach((el) => (el.innerHTML = "")));
-      } else if (
+      }
+      // TIE
+      else if (
         allLines.every(
           (arr) =>
             arr.some(
@@ -108,8 +123,6 @@ class Game {
     allLines.forEach((arr) => check(arr));
   }
 }
-
-// Przepisać to do klasy
 // Dodać funkcjonalność dla wygranej
 // Dodać funkcjonalność dla przegranej
 // Dodać funkcjonalność dla remisu

@@ -1,3 +1,7 @@
+// --------------------
+// PREGAME CLASS
+// --------------------
+
 const chooseYourFighter = document.querySelector("h3");
 let newGame;
 
@@ -9,6 +13,8 @@ class Pregame {
     this.activePlayer = Math.floor(Math.random() * (3 - 1)) + 1;
   }
 
+  // VERIFY IF EVERYTHING IS CHECKED,
+  // THEN UNLOCK START BUTTON
   static unlockStart() {
     let message;
     const test = (par1, par2, par3, text, unlock) => {
@@ -32,6 +38,7 @@ class Pregame {
     return message;
   }
 
+  // SET HOW MANY GAMES WILL BE PLAYED
   static howManyGames() {
     const howManyGames = document.getElementsByName("howManyGames");
 
@@ -44,12 +51,17 @@ class Pregame {
     return this.numberOfGames;
   }
 
+  // LOAD NEW GAME
   load() {
     newGame = new Game(this.activePlayer, this.player1, this.player2);
     newGame.start();
     return `How many games: ${this.howManyGames} Player1: ${this.player1.name} Player2: ${this.player2.name} ActivePlayer: ${this.activePlayer}`;
   }
 }
+
+// --------------------
+// PLAYER CLASS
+// --------------------
 
 let players = { player1: undefined, player2: undefined };
 class Player {
@@ -58,6 +70,7 @@ class Player {
     this.img = img;
   }
 
+  // CHOOSE YOUR FIGHTER
   static chooseYourFighter() {
     const fighters = document.querySelectorAll(".fighters");
     const playerNumber = document.querySelectorAll(".playerNumber");
@@ -73,6 +86,7 @@ class Player {
           } else {
             playerNumber[number].classList.add("player2");
           }
+          //CREATE NEW PLAYER
           players[full] = new Player(
             e.target.getAttribute("name"),
             `../assets/fighters/${e.target.classList[1]}.jpg`
@@ -102,6 +116,7 @@ class Player {
 Pregame.howManyGames();
 Player.chooseYourFighter();
 
+// START NEW GAME
 let newPregame;
 const startButton = document.querySelector(".start");
 startButton.addEventListener("click", () => {
