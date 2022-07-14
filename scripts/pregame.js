@@ -53,7 +53,12 @@ class Pregame {
 
   // LOAD NEW GAME
   load() {
-    newGame = new Game(this.activePlayer, this.player1, this.player2);
+    newGame = new Game(
+      this.activePlayer,
+      this.howManyGames,
+      this.player1,
+      this.player2
+    );
     newGame.start();
     return `How many games: ${this.howManyGames} Player1: ${this.player1.name} Player2: ${this.player2.name} ActivePlayer: ${this.activePlayer}`;
   }

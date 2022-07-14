@@ -5,10 +5,13 @@
 const ticTacFields = document.querySelectorAll(".ticTacField");
 
 class Game {
-  constructor(active, player1, player2) {
+  constructor(active, howManyGames, player1, player2) {
     this.activePlayer = active;
+    this.howManyGames = howManyGames;
     this.player1 = player1;
     this.player2 = player2;
+    this.points1 = 0;
+    this.points2 = 0;
   }
 
   // HIDE PREGAME AND SHOW GAME
@@ -48,11 +51,17 @@ class Game {
           field.innerHTML !== '<div class="x"></div>'
         ) {
           if (this.activePlayer === 1) {
+            // CHANGE ACTIVE PLAYER TO 2
             field.innerHTML = '<div class="o"></div>';
             this.activePlayer = 2;
+            //DODAĆ STYL ACTIVE DO PLAYER2
+            // DODAĆ STYL INACTIVE DO PLAYER1
           } else {
+            // CHANGE ACTIVE PLAYER TO 1
             field.innerHTML = '<div class="x"></div>';
             this.activePlayer = 1;
+            //DODAĆ STYL ACTIVE DO PLAYER1
+            // DODAĆ STYL INACTIVE DO PLAYER2
           }
         }
 
@@ -73,6 +82,7 @@ class Game {
     const colThree = Array.from(document.querySelectorAll(".colThree"));
     const colFour = Array.from(document.querySelectorAll(".colFour"));
     const colFive = Array.from(document.querySelectorAll(".colFive"));
+    const result = document.querySelector(".middle");
 
     const rowsAndCols = [
       rowA,
@@ -97,6 +107,17 @@ class Game {
       ) {
         console.log("Wygrało kółko");
         rowsAndCols.forEach((arr) => arr.forEach((el) => (el.innerHTML = "")));
+        if (this.points1 < this.howManyGames - 1) {
+          this.points1++;
+        } else {
+          this.points1++;
+          console.log(
+            `${this.player1.name} ${this.points1}:${this.points2} ${this.player2.name}`
+          );
+          setTimeout(() => {});
+          // this.points1 = 0;
+          // this.points2 = 0;
+        }
       }
       // CROSS WON
       else if (
@@ -104,6 +125,16 @@ class Game {
       ) {
         console.log("Wygrał krzyżyk");
         rowsAndCols.forEach((arr) => arr.forEach((el) => (el.innerHTML = "")));
+        if (this.points2 < this.howManyGames - 1) {
+          this.points2++;
+        } else {
+          this.points2++;
+          console.log(
+            `${this.player1.name} ${this.points1}:${this.points2} ${this.player2.name}`
+          );
+          // this.points1 = 0;
+          // this.points2 = 0;
+        }
       }
       // TIE
       else if (
@@ -121,14 +152,18 @@ class Game {
     };
 
     allLines.forEach((arr) => check(arr));
+    result.textContent = `${this.points1}:${this.points2}`;
   }
 }
+// Napisać przełączanie aktywnego gracza
+// Połączyć to z pregame
+// Napisać aktualizację wyniku
+// Napisać afterGame (modal, gdzie można kliknąć zagraj ponownie albo wrócić do wyboru postaci)
 // Dodać funkcjonalność dla wygranej
 // Dodać funkcjonalność dla przegranej
 // Dodać funkcjonalność dla remisu
-// Napisać przełączanie aktywnego gracza
-// Napisać aktualizację wyniku
-// Połączyć to z pregame
-// Napisać afterGame (modal, gdzie można kliknąć zagraj ponownie albo wrócić do wyboru postaci)
+// PLAY GOAL SOUND
+// PLAY LAST WHISTLE
+// BUTTON TO DISABLE MUSIC
 // Responsywność
 // SCSS
