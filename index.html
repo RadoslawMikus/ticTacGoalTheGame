@@ -5,6 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TicTacGOAL - the Game!</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
@@ -80,47 +87,25 @@
         </div>
       </div>
       <button class="start" disabled>Start the game!</button>
+      <button class="musicSwitch"></button>
     </div>
 
     <div class="game d-none">
       <div class="results">
         <div class="player1">
-          <img src="/assets/fighters/fighterA.jpg" alt="" />
+          <img />
           <span
-            ><u>Leo Messi</u>
-            <div class="block">
-              <img class="point" src="assets/point.png" /><img
-                class="point"
-                src="assets/point.png"
-              /><img class="point" src="assets/point.png" /><img
-                class="point"
-                src="assets/point.png"
-              /><img class="point" src="assets/point.png" /><img
-                class="point"
-                src="assets/point.png"
-              /><img class="point" src="assets/point.png" /><img
-                class="point"
-                src="assets/point.png"
-              /><img class="point" src="assets/point.png" /><img
-                class="point"
-                src="assets/point.png"
-              /></div
+            ><span class="name1"></span>
+            <div class="block"></div
           ></span>
         </div>
         <div class="middle">0:0</div>
         <div class="player2">
           <span
-            >Kevin De Bruyne
-            <div class="block">
-              <img class="point" src="assets/point.png" /><img
-                class="point"
-                src="assets/point.png"
-              /><img class="point" src="assets/point.png" /><img
-                class="point"
-                src="assets/point.png"
-              /></div
+            ><span class="name2"></span>
+            <div class="block"></div
           ></span>
-          <img src="/assets/fighters/fighterB.jpg" alt="" />
+          <img />
         </div>
       </div>
       <div class="ticTac">
@@ -155,8 +140,12 @@
         <div class="ticTacField colFive rowE"></div>
       </div>
     </div>
+
+    <div class="modal d-none"></div>
+    <div class="overlay d-none"></div>
     <script src="./scripts/pregame.js"></script>
     <script src="./scripts/game.js"></script>
     <script src="./scripts/aftergame.js"></script>
+    <script src="./scripts/modal.js"></script>
   </body>
 </html>

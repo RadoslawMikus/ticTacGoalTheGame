@@ -1,38 +1,86 @@
+const stadium = new Audio("../assets/stadium.mp3");
+stadium.loop = true;
 // --------------------
 // GAME CLASS
 // --------------------
 
 const ticTacFields = document.querySelectorAll(".ticTacField");
+const playerOneTrophies = document.querySelector(".player1 .block");
+const playerTwoTrophies = document.querySelector(".player2 .block");
+const result = document.querySelector(".middle");
 
 class Game {
-  constructor(active, howManyGames, player1, player2) {
+  constructor(active, numberOfGames, player1, player2, music) {
     this.activePlayer = active;
-    this.howManyGames = howManyGames;
+    this.numberOfGames = numberOfGames;
     this.player1 = player1;
     this.player2 = player2;
     this.points1 = 0;
     this.points2 = 0;
+    this.music = music;
   }
 
   // HIDE PREGAME AND SHOW GAME
   start() {
+    console.log("start");
+    [playerOneTrophies, playerTwoTrophies].forEach((el) => (el.innerHTML = ""));
+    result.textContent = "0:0";
     document
       .querySelectorAll(".pregame, .game")
       .forEach((el) => el.classList.toggle("d-none"));
-    this.makeDecision();
+    this.music === "on" ? stadium.play() : "";
+    document
+      .querySelector(".player1 > img")
+      .setAttribute("src", this.player1.img);
+    document.querySelector(".name1").textContent = this.player1.name;
+    document
+      .querySelector(".player2 > img")
+      .setAttribute("src", this.player2.img);
+    document.querySelector(".name2").textContent = this.player2.name;
+    ticTacFields.forEach((field) =>
+      field.addEventListener("click", () => {
+        // this.checkResult();
+        console.log(this);
+      })
+    );
+
+    Pregame.initialized === undefined ? this.makeDecision() : "";
+
+    const startOfTheGame = new Modal(
+      `Zaczyna ${
+        this.activePlayer === 1
+          ? "P1: " + this.player1.name
+          : "P2: " + this.player2.name
+      }`,
+      false,
+      false,
+      true
+    );
+    startOfTheGame.showModal();
   }
 
   // HOVER TO PREVIEW, CLICK TO MAKE A DECISION
   makeDecision() {
+    console.log("make decision");
+    const playerOne = document.querySelector(".game .player1");
+    const playerTwo = document.querySelector(".game .player2");
+
+    if (this.activePlayer === 1) {
+      playerOne.classList.add("active");
+      playerTwo.classList.add("inactive");
+    } else {
+      playerOne.classList.add("inactive");
+      playerTwo.classList.add("active");
+    }
+
     // PREVIEW YOUR DECISION
     const resetHover = (hover) => (hover.style.backgroundImage = null);
-
     ticTacFields.forEach((field) => {
-      field.addEventListener("mouseout", () => resetHover(field));
+      const mouseOut = () => resetHover(field);
+      field.addEventListener("mouseout", mouseOut);
 
-      field.addEventListener("mouseover", () => {
+      const mouseOver = () => {
         ticTacFields.forEach((field) => resetHover(field));
-
         if (
           field.innerHTML !== '<div class="o"></div>' &&
           field.innerHTML !== '<div class="x"></div>'
@@ -42,36 +90,43 @@ class Game {
               ? "url(/assets/wo.png)"
               : "url(/assets/wx.png)";
         }
-      });
+      };
+      field.addEventListener("mouseover", mouseOver);
 
       //CLICK TO MAKE A DECISION
-      field.addEventListener("click", () => {
+
+      const make = () => {
         if (
           field.innerHTML !== '<div class="o"></div>' &&
           field.innerHTML !== '<div class="x"></div>'
         ) {
           if (this.activePlayer === 1) {
-            // CHANGE ACTIVE PLAYER TO 2
             field.innerHTML = '<div class="o"></div>';
             this.activePlayer = 2;
-            //DODAĆ STYL ACTIVE DO PLAYER2
-            // DODAĆ STYL INACTIVE DO PLAYER1
+            playerOne.classList.add("inactive");
+            playerTwo.classList.remove("inactive");
+            playerOne.classList.remove("active");
+            playerTwo.classList.add("active");
           } else {
-            // CHANGE ACTIVE PLAYER TO 1
             field.innerHTML = '<div class="x"></div>';
             this.activePlayer = 1;
-            //DODAĆ STYL ACTIVE DO PLAYER1
-            // DODAĆ STYL INACTIVE DO PLAYER2
+            playerOne.classList.add("active");
+            playerOne.classList.remove("inactive");
+            playerTwo.classList.remove("active");
+            playerTwo.classList.toggle("inactive");
           }
         }
-
-        this.checkResult();
-      });
+        Pregame.newGame.checkResult();
+      };
+      field.addEventListener("click", make);
     });
   }
 
   // CHECK IF SOMEONE WON
   checkResult() {
+    console.log("check result");
+    console.log("thispoints1: " + this.player1.name);
+    console.log("thispoints2: " + this.points2);
     const rowA = Array.from(document.querySelectorAll(".rowA"));
     const rowB = Array.from(document.querySelectorAll(".rowB"));
     const rowC = Array.from(document.querySelectorAll(".rowC"));
@@ -82,7 +137,11 @@ class Game {
     const colThree = Array.from(document.querySelectorAll(".colThree"));
     const colFour = Array.from(document.querySelectorAll(".colFour"));
     const colFive = Array.from(document.querySelectorAll(".colFive"));
-    const result = document.querySelector(".middle");
+
+    const whistle = new Audio("../assets/whistle.mp3");
+    const goal = new Audio("../assets/goal.mp3");
+    goal.volume = 0.2;
+    whistle.volume = 0.2;
 
     const rowsAndCols = [
       rowA,
@@ -101,22 +160,32 @@ class Game {
     const allLines = [...rowsAndCols, crossA, crossB];
 
     const check = (line) => {
+      console.log("Checkuję");
       // CIRCLE WON
       if (
         line.every((element) => element.innerHTML === '<div class="o"></div>')
       ) {
         console.log("Wygrało kółko");
         rowsAndCols.forEach((arr) => arr.forEach((el) => (el.innerHTML = "")));
-        if (this.points1 < this.howManyGames - 1) {
+        ticTacFields.forEach((field) => (field.style.backgroundImage = null));
+        this.music === "on" ? goal.play() : "";
+        if (this.points1 < this.numberOfGames - 1) {
+          console.log("Jest mniejszy");
           this.points1++;
+          playerOneTrophies.innerHTML += `<img class="point" src="assets/point.png" />`;
         } else {
+          console.log("jest większy");
           this.points1++;
-          console.log(
-            `${this.player1.name} ${this.points1}:${this.points2} ${this.player2.name}`
+          this.music === "on" ? whistle.play() : "";
+          const player1won = new Modal(
+            `${this.player1.name} ${this.points1}:${this.points2} ${this.player2.name}`,
+            true,
+            true,
+            false
           );
-          setTimeout(() => {});
-          // this.points1 = 0;
-          // this.points2 = 0;
+          player1won.showModal();
+
+          playerOneTrophies.innerHTML += `<img class="point" src="assets/point.png" />`;
         }
       }
       // CROSS WON
@@ -124,16 +193,23 @@ class Game {
         line.every((element) => element.innerHTML === '<div class="x"></div>')
       ) {
         console.log("Wygrał krzyżyk");
+        this.music === "on" ? goal.play() : "";
         rowsAndCols.forEach((arr) => arr.forEach((el) => (el.innerHTML = "")));
-        if (this.points2 < this.howManyGames - 1) {
+        ticTacFields.forEach((field) => (field.style.backgroundImage = null));
+        if (this.points2 < this.numberOfGames - 1) {
           this.points2++;
+          playerTwoTrophies.innerHTML += `<img class="point" src="assets/point.png" />`;
         } else {
           this.points2++;
-          console.log(
-            `${this.player1.name} ${this.points1}:${this.points2} ${this.player2.name}`
+          this.music === "on" ? whistle.play() : "";
+          playerTwoTrophies.innerHTML += `<img class="point" src="assets/point.png" />`;
+          const player2won = new Modal(
+            `${this.player1.name} ${this.points1}:${this.points2} ${this.player2.name}`,
+            true,
+            true,
+            false
           );
-          // this.points1 = 0;
-          // this.points2 = 0;
+          player2won.showModal();
         }
       }
       // TIE
@@ -148,6 +224,7 @@ class Game {
       ) {
         console.log("Mamy remis");
         rowsAndCols.forEach((arr) => arr.forEach((el) => (el.innerHTML = "")));
+        ticTacFields.forEach((field) => (field.style.backgroundImage = null));
       }
     };
 
@@ -155,15 +232,6 @@ class Game {
     result.textContent = `${this.points1}:${this.points2}`;
   }
 }
-// Napisać przełączanie aktywnego gracza
-// Połączyć to z pregame
-// Napisać aktualizację wyniku
-// Napisać afterGame (modal, gdzie można kliknąć zagraj ponownie albo wrócić do wyboru postaci)
-// Dodać funkcjonalność dla wygranej
-// Dodać funkcjonalność dla przegranej
-// Dodać funkcjonalność dla remisu
-// PLAY GOAL SOUND
-// PLAY LAST WHISTLE
-// BUTTON TO DISABLE MUSIC
+
 // Responsywność
 // SCSS
