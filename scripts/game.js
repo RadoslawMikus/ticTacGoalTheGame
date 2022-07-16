@@ -1,5 +1,3 @@
-const stadium = new Audio("../assets/stadium.mp3");
-stadium.loop = true;
 // --------------------
 // GAME CLASS
 // --------------------
@@ -25,9 +23,10 @@ class Game {
     console.log("start");
     [playerOneTrophies, playerTwoTrophies].forEach((el) => (el.innerHTML = ""));
     result.textContent = "0:0";
-    document
-      .querySelectorAll(".pregame, .game")
-      .forEach((el) => el.classList.toggle("d-none"));
+    toggler(".pregame, .game");
+    // document
+    //   .querySelectorAll(".pregame, .game")
+    //   .forEach((el) => el.classList.toggle("d-none"));
     this.music === "on" ? stadium.play() : "";
     document
       .querySelector(".player1 > img")

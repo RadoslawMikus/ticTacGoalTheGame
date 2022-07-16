@@ -1,12 +1,14 @@
-// --------------------
-// PREGAME CLASS
-// --------------------
 const chooseYourFighter = document.querySelector("h3");
 const fighters = document.querySelectorAll(".fighters");
 const playerNumber = document.querySelectorAll(".playerNumber");
 const musicButton = document.querySelector(".musicSwitch");
 const startButton = document.querySelector(".start");
+const stadium = new Audio("../assets/stadium.mp3");
+stadium.loop = true;
 
+// --------------------
+// PREGAME CLASS
+// --------------------
 // let newGame;
 
 class Pregame {
@@ -15,24 +17,19 @@ class Pregame {
   static player2 = {};
 
   static setPregame() {
-    console.log("SetPregame");
-    musicButton.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+    // musicButton.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
     musicButton.addEventListener("click", () => Pregame.setMusic());
     Player.chooseYourFighter();
     this.howManyGames();
     this.whoIsFirst();
-
-    // window.addEventListener("click", () => {
-    //   console.log("Pregame: " + Pregame.numberOfGames);
-    //   // console.log("Game: " + Game.numberOfGames);
-    //   console.log("New Game " + this.newGame.numberOfGames);
-    // });
   }
 
+  // --------------------------------
   // VERIFY IF EVERYTHING IS CHECKED,
   // THEN UNLOCK START BUTTON
+  // --------------------------------
   static unlockStart() {
-    console.log("Unlock start");
+    // console.log("Unlock start");
     let message;
     const test = (par1, par2, par3, text, unlock) => {
       if (
@@ -58,13 +55,13 @@ class Pregame {
   }
 
   static whoIsFirst() {
-    console.log("WhoIsFirst");
+    // console.log("WhoIsFirst");
     this.activePlayer = Math.floor(Math.random() * (3 - 1)) + 1;
   }
 
   // SET HOW MANY GAMES WILL BE PLAYED
   static howManyGames() {
-    console.log("howManyGames");
+    // console.log("howManyGames");
     const howManyGames = document.getElementsByName("howManyGames");
 
     howManyGames.forEach((how) =>
@@ -74,24 +71,24 @@ class Pregame {
       })
     );
 
-    return this.numberOfGames;
+    // return this.numberOfGames;
   }
 
   static setMusic() {
-    console.log("setMusic");
-    if (musicButton.innerHTML === '<i class="fa-solid fa-volume-high"></i>') {
+    // console.log("setMusic");
+    if (musicButton.innerHTML !== '<i class="fa-solid fa-volume-xmark"></i>') {
       musicButton.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
       this.music = "off";
     } else {
       musicButton.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
       this.music = "on";
     }
-    return this.music;
+    // return this.music;
   }
 
   // LOAD NEW GAME
   static load() {
-    console.log("load");
+    // console.log("load");
     this.newGame = new Game(
       this.activePlayer,
       this.numberOfGames,
@@ -101,7 +98,7 @@ class Pregame {
     );
     this.newGame.start();
     this.initialized = true;
-    return `How many games: ${this.numberOfGames} Player1: ${this.player1.name} Player2: ${this.player2.name} ActivePlayer: ${this.activePlayer}`;
+    // return `How many games: ${this.numberOfGames} Player1: ${this.player1.name} Player2: ${this.player2.name} ActivePlayer: ${this.activePlayer}`;
   }
 }
 
@@ -116,7 +113,7 @@ class Player {
 
   // CHOOSE YOUR FIGHTER
   static chooseYourFighter() {
-    console.log("choose your fighter");
+    // console.log("choose your fighter");
     fighters.forEach((fighter, number) => {
       fighter.addEventListener("click", (e) => {
         const chooseFighter = (short, full) => {
@@ -143,15 +140,15 @@ class Player {
           Pregame.player2 = {};
           fighters.forEach((fighter) => {
             fighter.classList.remove("chosen");
-            playerNumber.forEach((tekst) => {
-              tekst.textContent = "";
+            playerNumber.forEach((label) => {
+              label.textContent = "";
             });
           });
         }
 
         if (
           Pregame.player1.name === undefined ||
-          e.target.getAttribute("name") === Pregame.player1.name
+          Pregame.player1.name === e.target.getAttribute("name")
         ) {
           chooseFighter("P1", "player1");
         } else {
@@ -162,9 +159,13 @@ class Player {
   }
 }
 
+const toggler = (params) => {
+  document
+    .querySelectorAll(params)
+    .forEach((el) => el.classList.toggle("d-none"));
+};
+
 Pregame.setPregame();
 
 // START NEW GAME
-startButton.addEventListener("click", () => {
-  Pregame.load();
-});
+startButton.addEventListener("click", () => Pregame.load());
