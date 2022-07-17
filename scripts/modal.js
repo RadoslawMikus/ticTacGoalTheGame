@@ -6,9 +6,10 @@ class Modal {
     this.hideModal = hideModal;
   }
 
+  // SHOW MODAL WITH NECCESSARY INFORMATIONS
+  // OPTIONALLY WITH REMATCH AND NEW GAME BUTTONS
   showModal() {
     const modal = document.querySelector(".modal");
-    // const overlay = document.querySelector(".overlay");
     modal.innerHTML = `<h1>${this.message}</h1>${
       this.showNewGame || this.showRematch
         ? `<span>${
@@ -22,8 +23,6 @@ class Modal {
           }</span>`
         : ""
     }`;
-    // modal.classList.remove("d-none");
-    // overlay.classList.remove("d-none");
     toggler(".modal, .overlay");
     this.showNewGame
       ? document
@@ -39,8 +38,6 @@ class Modal {
 
     this.hideModal === true
       ? setTimeout(() => {
-          // modal.classList.add("d-none");
-          // overlay.classList.add("d-none");
           toggler(".modal, .overlay");
           modal.innerHTML = "";
         }, 2000)

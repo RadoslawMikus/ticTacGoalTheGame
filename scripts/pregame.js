@@ -3,33 +3,32 @@ const fighters = document.querySelectorAll(".fighters");
 const playerNumber = document.querySelectorAll(".playerNumber");
 const musicButton = document.querySelector(".musicSwitch");
 const startButton = document.querySelector(".start");
+
+// SOUNDS
+// -------
 const stadium = new Audio("../assets/stadium.mp3");
 stadium.loop = true;
-
-// --------------------
-// PREGAME CLASS
-// --------------------
-// let newGame;
+const whistle = new Audio("../assets/whistle.mp3");
+const goal = new Audio("../assets/goal.mp3");
+[whistle, goal].forEach((el) => (el.volume = 0.2));
 
 class Pregame {
   static music = "on";
   static player1 = {};
   static player2 = {};
 
+  // PREPARE PREGAME
+  // ----------------
   static setPregame() {
-    // musicButton.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
     musicButton.addEventListener("click", () => Pregame.setMusic());
     Player.chooseYourFighter();
     this.howManyGames();
     this.whoIsFirst();
   }
 
-  // --------------------------------
-  // VERIFY IF EVERYTHING IS CHECKED,
-  // THEN UNLOCK START BUTTON
-  // --------------------------------
+  // VERIFY PLAYER SETUP, THEN UNLOCK START
+  // ---------------------------------------
   static unlockStart() {
-    // console.log("Unlock start");
     let message;
     const test = (par1, par2, par3, text, unlock) => {
       if (
@@ -54,14 +53,15 @@ class Pregame {
     return message;
   }
 
+  // DRAW WHO WILL START THE GAME
+  // -----------------------------
   static whoIsFirst() {
-    // console.log("WhoIsFirst");
     this.activePlayer = Math.floor(Math.random() * (3 - 1)) + 1;
   }
 
   // SET HOW MANY GAMES WILL BE PLAYED
+  // ----------------------------------
   static howManyGames() {
-    // console.log("howManyGames");
     const howManyGames = document.getElementsByName("howManyGames");
 
     howManyGames.forEach((how) =>
@@ -70,12 +70,11 @@ class Pregame {
         chooseYourFighter.textContent = this.unlockStart();
       })
     );
-
-    // return this.numberOfGames;
   }
 
+  // CHECK IF PLAYER WANTS THE SOUND ON
+  // -----------------------------------
   static setMusic() {
-    // console.log("setMusic");
     if (musicButton.innerHTML !== '<i class="fa-solid fa-volume-xmark"></i>') {
       musicButton.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
       this.music = "off";
@@ -83,12 +82,11 @@ class Pregame {
       musicButton.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
       this.music = "on";
     }
-    // return this.music;
   }
 
   // LOAD NEW GAME
+  // --------------
   static load() {
-    // console.log("load");
     this.newGame = new Game(
       this.activePlayer,
       this.numberOfGames,
@@ -98,12 +96,10 @@ class Pregame {
     );
     this.newGame.start();
     this.initialized = true;
-    // return `How many games: ${this.numberOfGames} Player1: ${this.player1.name} Player2: ${this.player2.name} ActivePlayer: ${this.activePlayer}`;
   }
 }
 
-// --------------------
-// PLAYER CLASS
+// PLAYER
 // --------------------
 class Player {
   constructor(name, img) {
@@ -112,8 +108,8 @@ class Player {
   }
 
   // CHOOSE YOUR FIGHTER
+  // --------------------
   static chooseYourFighter() {
-    // console.log("choose your fighter");
     fighters.forEach((fighter, number) => {
       fighter.addEventListener("click", (e) => {
         const chooseFighter = (short, full) => {
@@ -159,13 +155,23 @@ class Player {
   }
 }
 
+// SHOW AND HIDE GIVEN ELEMENTS
+// -----------------------------
 const toggler = (params) => {
   document
     .querySelectorAll(params)
     .forEach((el) => el.classList.toggle("d-none"));
 };
 
+// RESET POINTS AND TROPHIES
+// ---------------------------
+const resetResult = () => {
+  [playerOneTrophies, playerTwoTrophies].forEach((el) => (el.innerHTML = ""));
+  result.textContent = "0:0";
+};
+
 Pregame.setPregame();
 
 // START NEW GAME
+// ---------------
 startButton.addEventListener("click", () => Pregame.load());
