@@ -10,15 +10,15 @@ class Modal {
   // OPTIONALLY WITH REMATCH AND NEW GAME BUTTONS
   showModal() {
     const modal = document.querySelector(".modal");
-    modal.innerHTML = `<h1>${this.message}</h1>${
+    modal.innerHTML = `<div>${this.message}</div>${
       this.showNewGame || this.showRematch
         ? `<span>${
             this.showRematch === true
-              ? `<button id = "rematch">Show Rematch</button>`
+              ? `<button id = "rematch">Rematch</button>`
               : ""
           }${
             this.showNewGame === true
-              ? `<button id = "newGame">Show New Game</button>`
+              ? `<button id = "newGame">New Game</button>`
               : ""
           }</span>`
         : ""

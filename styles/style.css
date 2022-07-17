@@ -12,7 +12,7 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   background-image: url("../assets/bg.jpg");
   background-size: cover;
-  background-position: center 40%;
+  background-position: center 30%;
   background-repeat: no-repeat;
   color: white;
   height: 100%;
@@ -27,6 +27,9 @@ body {
   justify-content: center;
   align-items: center;
 }
+.pregame h1 {
+  font-size: 5.5vmin;
+}
 .pregame h1 > span {
   color: rgb(104, 138, 255);
 }
@@ -39,26 +42,38 @@ input {
   padding: 20px;
   margin: 20px 0;
   border: 1px solid white;
+  max-width: 90%;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
 }
 .howManyGames h2 {
   margin-top: 0;
+  font-size: 5vmin;
 }
 .howManyGames div {
   display: flex;
   justify-content: space-evenly;
   font-size: 18px;
+  margin: 20px 0 0;
+}
+.howManyGames div span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .chooseFighter {
   background-color: black;
   border: 5px solid black;
+  margin: 20px 0 0;
   height: 300px;
-  width: 60%;
+  width: 90%;
+  max-width: 800px;
   display: grid;
   z-index: 0;
   gap: 5px;
@@ -157,7 +172,22 @@ input {
 
 .start {
   margin: 20px 0 0;
-  padding: 5px 10px;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 0;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: all 0.2s ease-in;
+}
+.start:disabled {
+  color: rgb(136, 136, 136);
+  background-color: rgb(167, 167, 167);
+}
+.start:hover {
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .fighterWrap {
@@ -199,8 +229,10 @@ input {
 
 .ticTac {
   background-color: rgba(0, 0, 0, 0.7);
-  width: 70vmin;
-  height: 70vmin;
+  width: 80vmin;
+  height: 80vmin;
+  max-width: 500px;
+  max-height: 500px;
   display: flex;
   flex-wrap: wrap;
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -237,9 +269,10 @@ input {
 }
 
 .results {
-  height: 20%;
+  height: 25%;
   width: 100%;
   display: flex;
+  padding-top: 10px;
   overflow: hidden;
   justify-content: space-evenly;
   background-image: linear-gradient(rgba(0, 0, 0, 0.9), transparent);
@@ -249,7 +282,7 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 5vmin;
+  font-size: 36px;
 }
 .results .player1,
 .results .player2 {
@@ -276,16 +309,25 @@ input {
   align-items: center;
   flex-direction: column;
 }
+.results .player1 .name1,
+.results .player1 .name2,
+.results .player2 .name1,
+.results .player2 .name2 {
+  display: none;
+  height: 30%;
+  font-size: 2vw;
+}
 .results .player1 .block,
 .results .player2 .block {
   height: 40%;
-  display: flex;
+  min-height: 50px;
+  display: none;
   justify-content: center;
   align-items: center;
 }
 .results .player1 .point,
 .results .player2 .point {
-  height: 70%;
+  height: 80%;
   border: 0;
   border-radius: 0;
 }
@@ -305,12 +347,30 @@ input {
   left: 50%;
   background-color: rgb(36, 0, 135);
   transform: translate(-50%, -50%);
-  width: 60%;
+  width: 80%;
+  max-width: 900px;
   height: 70%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  font-size: 5vmin;
+  font-weight: 600;
+  border-radius: 10px;
+  text-shadow: 2px 2px 2px #000;
+}
+.modal::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url(/assets/pattern.jpg);
+  background-position: left;
+  background-size: cover;
+  opacity: 0.05;
 }
 
 .overlay {
@@ -324,4 +384,94 @@ input {
 
 .d-none {
   display: none;
+}
+
+#rematch,
+#newGame {
+  position: relative;
+  z-index: 1;
+  padding: 10px 15px;
+  margin: 50px 5px 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 0;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 3vmin;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+}
+#rematch:hover,
+#newGame:hover {
+  background-color: #fff;
+}
+
+.longMessage {
+  display: none;
+}
+
+.shortMessage {
+  display: block;
+}
+
+@media only screen and (orientation: landscape) and (max-height: 600px) {
+  .game {
+    padding-bottom: 10px;
+  }
+  .pregame h1 {
+    margin-top: 5px;
+  }
+  .howManyGames {
+    padding: 5px;
+    margin: 5px 0;
+  }
+  .howManyGames div {
+    margin: 5px;
+  }
+  .chooseFighter {
+    margin: 5px 0 0;
+  }
+  .start,
+.musicSwitch {
+    margin: 5px 0;
+  }
+}
+@media only screen and (min-width: 650px) {
+  .howManyGames h2 {
+    font-size: 4vmin;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  #rematch,
+#newGame {
+    font-size: 2vmin;
+  }
+  .results .player1 .block,
+.results .player1 .name1,
+.results .player1 .name2,
+.results .player2 .block,
+.results .player2 .name1,
+.results .player2 .name2 {
+    display: flex;
+  }
+  .longMessage {
+    display: block;
+  }
+  .shortMessage {
+    display: none;
+  }
+}
+.musicSwitch {
+  height: 38px;
+  width: 38px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 0;
+  border-radius: 10px;
+  font-size: 18px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+}
+.musicSwitch:hover {
+  background-color: rgba(255, 255, 255, 0.9);
 }

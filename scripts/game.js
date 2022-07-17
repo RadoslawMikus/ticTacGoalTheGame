@@ -46,6 +46,8 @@ class Game {
     startOfTheGame.showModal();
   }
 
+  // CHECK WHO IS ACTIVE AND ADD STYLES
+  // -----------------------------------
   checkActive() {
     [playerOne, playerTwo].forEach((el) =>
       el.classList.remove("active", "inactive")
@@ -152,40 +154,31 @@ class Game {
       if (
         line.every((element) => element.innerHTML === '<div class="o"></div>')
       ) {
+        this.points1++;
         this.music === "on" ? goal.play() : "";
         clearFields();
-        if (this.points1 < this.numberOfGames - 1) {
-          this.points1++;
-          playerOneTrophies.innerHTML += `<img class="point" src="assets/point.png" />`;
-        } else {
-          this.points1++;
+        if (this.points1 === this.numberOfGames) {
           this.music === "on" ? whistle.play() : "";
           const player1won = new Modal(
-            `${this.player1.name} ${this.points1}:${this.points2} ${this.player2.name}`,
+            `<span class="longMessage">${this.player1.name} ${this.points1}:${this.points2} ${this.player2.name}</span><span class="shortMessage">${this.player1.name} won!</span>`,
             true,
             true,
             false
           );
           player1won.showModal();
-
-          playerOneTrophies.innerHTML += `<img class="point" src="assets/point.png" />`;
         }
       }
       // CROSS WON
       else if (
         line.every((element) => element.innerHTML === '<div class="x"></div>')
       ) {
+        this.points2++;
         this.music === "on" ? goal.play() : "";
         clearFields();
-        if (this.points2 < this.numberOfGames - 1) {
-          this.points2++;
-          playerTwoTrophies.innerHTML += `<img class="point" src="assets/point.png" />`;
-        } else {
-          this.points2++;
+        if (this.points2 === this.numberOfGames) {
           this.music === "on" ? whistle.play() : "";
-          playerTwoTrophies.innerHTML += `<img class="point" src="assets/point.png" />`;
           const player2won = new Modal(
-            `${this.player1.name} ${this.points1}:${this.points2} ${this.player2.name}`,
+            `<span class="longMessage">${this.player1.name} ${this.points1}:${this.points2} ${this.player2.name}</span><span class="shortMessage">${this.player2.name} won!</span>`,
             true,
             true,
             false
@@ -205,7 +198,7 @@ class Game {
       ) {
         clearFields();
         const tieModal = new Modal(
-          `No more moves possible. Tie!`,
+          `No more moves possible!`,
           false,
           false,
           true
@@ -216,5 +209,17 @@ class Game {
 
     allLines.forEach((arr) => check(arr));
     result.textContent = `${this.points1}:${this.points2}`;
+
+    if (this.numberOfGames <= 5) {
+      [playerOneTrophies, playerTwoTrophies].forEach(
+        (el) => (el.innerHTML = "")
+      );
+      for (let i = 0; i < this.points1; i++) {
+        playerOneTrophies.innerHTML += `<img class="point" src="assets/point.png" />`;
+      }
+      for (let i = 0; i < this.points2; i++) {
+        playerTwoTrophies.innerHTML += `<img class="point" src="assets/point.png" />`;
+      }
+    }
   }
 }
