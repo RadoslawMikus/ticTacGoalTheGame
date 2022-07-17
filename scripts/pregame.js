@@ -23,7 +23,6 @@ class Pregame {
     musicButton.addEventListener("click", () => Pregame.setMusic());
     Player.chooseYourFighter();
     this.howManyGames();
-    this.whoIsFirst();
   }
 
   // VERIFY PLAYER SETUP, THEN UNLOCK START
@@ -87,6 +86,7 @@ class Pregame {
   // LOAD NEW GAME
   // --------------
   static load() {
+    this.whoIsFirst();
     this.newGame = new Game(
       this.activePlayer,
       this.numberOfGames,

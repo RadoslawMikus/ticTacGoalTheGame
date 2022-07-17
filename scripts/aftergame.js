@@ -11,6 +11,9 @@ class Aftergame {
       .getElementsByName("howManyGames")
       .forEach((el) => (el.checked = false));
     Pregame.numberOfGames = undefined;
+    Pregame.activePlayer = undefined;
+    Pregame.newGame.activePlayer = undefined;
+
     stadium.pause();
     stadium.currentTime = 0;
     fighters.forEach((fighter) => {
