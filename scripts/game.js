@@ -20,7 +20,6 @@ class Game {
   // ---------------------------
   start() {
     resetResult();
-    console.log(this.activePlayer);
     toggler(".pregame, .game");
     this.music === "on" ? stadium.play() : "";
     document
@@ -32,8 +31,7 @@ class Game {
       .setAttribute("src", this.player2.img);
     document.querySelector(".name2").textContent = this.player2.name;
 
-    Pregame.initialized === undefined ? this.makeDecision() : "";
-    this.checkActive();
+    this.makeDecision();
 
     const startOfTheGame = new Modal(
       `Zaczyna ${
@@ -49,11 +47,13 @@ class Game {
   }
 
   checkActive() {
-    console.log("check active");
+    [playerOne, playerTwo].forEach((el) =>
+      el.classList.remove("active", "inactive")
+    );
     if (this.activePlayer === 1) {
       playerOne.classList.add("active");
       playerTwo.classList.add("inactive");
-    } else {
+    } else if (this.activePlayer === 2) {
       playerOne.classList.add("inactive");
       playerTwo.classList.add("active");
     }
@@ -62,11 +62,11 @@ class Game {
   // HOVER TO PREVIEW, CLICK TO MAKE A DECISION
   // -------------------------------------------
   makeDecision() {
+    this.checkActive();
     // PREVIEW YOUR DECISION
     const resetHover = (hover) => (hover.style.backgroundImage = null);
     ticTacFields.forEach((field) => {
       const mouseOut = () => resetHover(field);
-      field.addEventListener("mouseout", mouseOut);
 
       const mouseOver = () => {
         ticTacFields.forEach((field) => resetHover(field));
@@ -75,12 +75,11 @@ class Game {
           field.innerHTML !== '<div class="x"></div>'
         ) {
           field.style.backgroundImage =
-            this.activePlayer === 1
+            Pregame.newGame.activePlayer === 1
               ? "url(/assets/wo.png)"
               : "url(/assets/wx.png)";
         }
       };
-      field.addEventListener("mouseover", mouseOver);
 
       //CLICK TO MAKE A DECISION
       const make = () => {
@@ -88,16 +87,16 @@ class Game {
           field.innerHTML !== '<div class="o"></div>' &&
           field.innerHTML !== '<div class="x"></div>'
         ) {
-          if (this.activePlayer === 1) {
+          if (Pregame.newGame.activePlayer === 1) {
             field.innerHTML = '<div class="o"></div>';
-            this.activePlayer = 2;
+            Pregame.newGame.activePlayer = 2;
             playerOne.classList.add("inactive");
             playerTwo.classList.remove("inactive");
             playerOne.classList.remove("active");
             playerTwo.classList.add("active");
           } else {
             field.innerHTML = '<div class="x"></div>';
-            this.activePlayer = 1;
+            Pregame.newGame.activePlayer = 1;
             playerOne.classList.add("active");
             playerOne.classList.remove("inactive");
             playerTwo.classList.remove("active");
@@ -106,7 +105,12 @@ class Game {
         }
         Pregame.newGame.checkResult();
       };
-      field.addEventListener("click", make);
+
+      if (Pregame.initialized === undefined) {
+        field.addEventListener("mouseover", mouseOver);
+        field.addEventListener("mouseout", mouseOut);
+        field.addEventListener("click", make);
+      }
     });
   }
 

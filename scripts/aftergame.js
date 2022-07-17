@@ -2,13 +2,15 @@ class Aftergame {
   // RESET EVERYTHING AND START A NEW GAME
   // WITH CHOOSING PLAYERS
   static newGame() {
+    [playerOne, playerTwo].forEach((el) =>
+      el.classList.remove("active", "inactive")
+    );
     startButton.setAttribute("disabled", "disabled");
     toggler(".pregame, .game, .overlay, .modal");
     document
       .getElementsByName("howManyGames")
       .forEach((el) => (el.checked = false));
     Pregame.numberOfGames = undefined;
-    console.log(this.activePlayer);
     stadium.pause();
     stadium.currentTime = 0;
     fighters.forEach((fighter) => {
@@ -26,9 +28,9 @@ class Aftergame {
     toggler(".overlay, .modal");
     const startOfTheGame = new Modal(
       `Zaczyna ${
-        this.activePlayer === 1
-          ? "P1: " + this.player1.name
-          : "P2: " + this.player2.name
+        Pregame.newGame.activePlayer === 1
+          ? "P1: " + Pregame.newGame.player1.name
+          : "P2: " + Pregame.newGame.player2.name
       }`,
       false,
       false,
