@@ -365,7 +365,7 @@ input {
   height: 100%;
   width: 100%;
   opacity: 0.05;
-  background-image: url(/assets/pattern.jpg);
+  background-image: url(./assets/pattern.jpg);
   background-position: left;
   background-size: cover;
 }

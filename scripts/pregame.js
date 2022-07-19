@@ -6,10 +6,10 @@ const startButton = document.querySelector(".start");
 
 // SOUNDS
 // -------
-const stadium = new Audio("../assets/stadium.mp3");
+const stadium = new Audio("././assets/stadium.mp3");
 stadium.loop = true;
-const whistle = new Audio("../assets/whistle.mp3");
-const goal = new Audio("../assets/goal.mp3");
+const whistle = new Audio("././assets/whistle.mp3");
+const goal = new Audio("././assets/goal.mp3");
 [whistle, goal].forEach((el) => (el.volume = 0.2));
 
 class Pregame {
