@@ -78,8 +78,8 @@ class Game {
         ) {
           field.style.backgroundImage =
             Pregame.newGame.activePlayer === 1
-              ? "url(/assets/wo.png)"
-              : "url(/assets/wx.png)";
+              ? "url(assets/wo.png)"
+              : "url(assets/wx.png)";
         }
       };
 
