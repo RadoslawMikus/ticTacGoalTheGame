@@ -124,7 +124,7 @@ class Player {
           //CREATE NEW PLAYER
           Pregame[full] = new Player(
             e.target.getAttribute("name"),
-            `../assets/fighters/${e.target.classList[1]}.jpg`
+            `assets/fighters/${e.target.classList[1]}.jpg`
           );
           chooseYourFighter.textContent = Pregame.unlockStart();
         };
