@@ -360,11 +360,11 @@ input {
   }
 }
 .x {
-  background-image: url(../assets/wx.png);
+  background-image: url(././assets/wx.png);
 }
 
 .o {
-  background-image: url(../assets/wo.png);
+  background-image: url(././assets/wo.png);
 }
 
 // ---------------------------
@@ -401,7 +401,7 @@ input {
     width: 100%;
     opacity: 0.05;
     background: {
-      image: url(./assets/pattern.jpg);
+      image: url(././assets/pattern.jpg);
       position: left;
       size: cover;
     }
