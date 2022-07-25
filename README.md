@@ -1,4 +1,4 @@
-## ticTacGoalTheGame ⭕️ / ❌
+## ticTacGoal - the Game! ⭕️ / ❌
 
 ### Repository: https://github.com/davidsmith931/ticTacGoalTheGame
 ### Live Demo: https://davidsmith931.github.io/ticTacGoalTheGame/
