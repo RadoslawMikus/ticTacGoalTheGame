@@ -18,7 +18,8 @@ The goal is to create a football version of the game TicTacToe (local multiplaye
 - [X] Verify chosen "fighters" and create new player objects
 
 ### ⚽️ &nbsp;Game
-    "Football is a simple game: 22 men chase a ball for 90 minutes and, in the end, the Germans always win"
+    "Football is a simple game: 22 men chase a ball for 90 minutes and,
+    in the end, the Germans always win"
     ~ Gary Lineker
 
 - [X] Set number of games accordingly to pregame settings,
