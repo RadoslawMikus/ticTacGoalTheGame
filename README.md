@@ -1,7 +1,7 @@
 ## ticTacGoal - the Game! ⭕️ / ❌
 
-### Repository: https://github.com/davidsmith931/ticTacGoalTheGame
-### Live Demo: https://davidsmith931.github.io/ticTacGoalTheGame/
+### Repository: https://github.com/RadoslawMikus/ticTacGoalTheGame
+### Live Demo: https://radoslawmikus.github.io/ticTacGoalTheGame/
 
 The goal is to create a football version of the game TicTacToe (local multiplayer, 5x5).
 
